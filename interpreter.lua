@@ -58,7 +58,7 @@ function dolisp(elem,ENV)
             return nil
         end
     elseif #elem == 0 then
-        return
+        return nil
     elseif elem[1] == "if" then
         local NENV = createEnv(ENV)
         if dolisp(elem[2],NENV) then
@@ -77,6 +77,7 @@ function dolisp(elem,ENV)
     elseif elem[1] == "var" then
         checkParamNumber(elem,3)    
         ENV[elem[2]] = dolisp(elem[3],ENV)
+        return ENV[elem[2]]
     elseif elem[1] == "globe" then
         local t = ENV
         while t.root ~= nil do
@@ -84,6 +85,7 @@ function dolisp(elem,ENV)
         end
         if #elem >= 3 then
             t[elem[2]] = dolisp(elem[3],ENV)
+            return t[elem[2]]
         else 
             return t[elem[2]] 
         end
@@ -91,7 +93,10 @@ function dolisp(elem,ENV)
         checkParamNumber(elem,2)
         local statu,res = pcall(add_lib,ENV,elem[2])
         if statu == false then
-            load_lisp(ENV,elem[2])
+            local statu,res = pcall(load_lisp,ENV,elem[2])
+            return statu
+        else
+            return true
         end
     elseif elem[1] == "lambda" then
         checkParamNumber(elem,3)
@@ -102,6 +107,7 @@ function dolisp(elem,ENV)
         while dolisp(elem[2],NENV) do 
             dolisp(elem[3],NENV)
         end
+        return nil
     elseif elem[1] == "for" then
         local NENV = createEnv(ENV)
         checkParamNumber(elem,4)
@@ -121,6 +127,8 @@ function dolisp(elem,ENV)
         elseif type(func) == "table" and func.isfunction == true then
             local body = func[2]
             return dolisp(body,createENV_(ENV,func[1],args))
+        else
+            return args[#args]
         end
     end
 end

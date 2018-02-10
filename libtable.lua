@@ -42,7 +42,6 @@ tm.map = function(param)
         for jj = 2,#param do
             command[#command + 1] = param[jj][ii]
         end
-        table.concat( command, ",")
         res[#res + 1] = r.dolisp(command,param[-1])
     end
     return res

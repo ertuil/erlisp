@@ -121,6 +121,7 @@ function run_interactive(ENV,get_command)
         else 
             s.print(ret)
         end
+        print()
     end
 end
 

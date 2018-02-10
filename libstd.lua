@@ -354,6 +354,14 @@ function lib_isnil(param)
     end
 end
 
+function lib_repeat(param)
+    local res = {}
+    for ii = 1,param[2] do
+        res[#res + 1] = param[1]
+    end
+    return res
+end
+
 -- 基本数学运算
 tb["+"] = lib_add
 tb["-"] = lib_mine
@@ -400,6 +408,7 @@ tb["len"] = lib_len
 tb["equal"] = lib_eq
 tb["type"] = lib_type
 tb["range"] = lib_range
+tb["repeat"] = lib_repeat
 tb["dofile"] = lib_dofile
 tb["tonumber"] = lib_tonumber
 tb["tostring"] = lib_tostring

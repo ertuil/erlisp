@@ -5,7 +5,7 @@
 ; 作用：将传入函数的参数 d 固定为 "world"
 (var create
     (lambda (b)
-        (part b "d" "world") ;part 函数 类似python的 偏函数 的作用
+        (part b "d" "帅的人") ;part 函数 类似python的 偏函数 的作用
     )
 )
 
@@ -18,6 +18,6 @@
 (var res (create "test"))
 
 ; 调用res，只提供第一个参数
-(res "hello,")
+(res "我是")
 
-; 输入 hello,  world
+; 输入 我是帅的人
